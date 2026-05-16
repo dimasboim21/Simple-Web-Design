@@ -7,6 +7,13 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="fireworks" aria-hidden="true">
+    <span class="firework firework-1"></span>
+    <span class="firework firework-2"></span>
+    <span class="firework firework-3"></span>
+    <span class="firework firework-4"></span>
+  </div>
+  <div class="confetti" aria-hidden="true"></div>
   <div class="page">
     <header class="hero">
       <h1>Selamat Ulang Tahun, Givanny Permata Sari!</h1>
@@ -36,5 +43,36 @@
       <p>Catatan: Jika Anda menggunakan GitHub Pages, letakkan <strong>index.html</strong> dan gambar di root repository, lalu aktifkan Pages untuk branch <strong>main</strong>.</p>
     </section>
   </div>
+
+  <script>
+    const colors = ['#ffea75', '#ff7f7f', '#89d6ff', '#ffb6c1', '#ffd66b'];
+
+    function createConfetti() {
+      const confettiContainer = document.querySelector('.confetti');
+      if (!confettiContainer) return;
+      for (let i = 0; i < 30; i++) {
+        const piece = document.createElement('span');
+        piece.className = 'confetti-piece';
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = `${Math.random() * 1.5}s`;
+        piece.style.animationDuration = `${2 + Math.random() * 2}s`;
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+        confettiContainer.appendChild(piece);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', createConfetti);
+
+    document.addEventListener('mousemove', function(event) {
+      const sparkle = document.createElement('span');
+      sparkle.className = 'cursor-spark';
+      sparkle.style.left = event.pageX + 'px';
+      sparkle.style.top = event.pageY + 'px';
+      sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+      document.body.appendChild(sparkle);
+      window.setTimeout(() => sparkle.remove(), 700);
+    });
+  </script>
 </body>
 </html>
