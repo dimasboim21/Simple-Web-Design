@@ -15,9 +15,11 @@
   </div>
   <div class="confetti" aria-hidden="true"></div>
   
-  <!-- Fullscreen Photo Modal -->
-  <div class="photo-modal" id="photoModal">
-    <img id="modalImage" src="" alt="Fullscreen Photo" />
+  <!-- Photo Popup Modal -->
+  <div class="photo-popup-overlay" id="photoPopupOverlay">
+    <div class="photo-popup-container">
+      <img id="popupImage" src="" alt="Photo Popup" />
+    </div>
   </div>
   
   <div class="page">
@@ -117,20 +119,27 @@
       window.setTimeout(() => sparkle.remove(), 700);
     });
 
-    // Fullscreen photo modal effect
+    // Photo Popup Effect
     const highlightPhotos = document.querySelectorAll('.highlight-photo');
-    const photoModal = document.getElementById('photoModal');
-    const modalImage = document.getElementById('modalImage');
+    const photoPopupOverlay = document.getElementById('photoPopupOverlay');
+    const popupImage = document.getElementById('popupImage');
 
     highlightPhotos.forEach(photo => {
       photo.addEventListener('mouseenter', function() {
-        modalImage.src = this.src;
-        photoModal.classList.add('active');
+        popupImage.src = this.src;
+        photoPopupOverlay.classList.add('active');
       });
 
       photo.addEventListener('mouseleave', function() {
-        photoModal.classList.remove('active');
+        photoPopupOverlay.classList.remove('active');
       });
+    });
+
+    // Close popup when clicking on overlay
+    photoPopupOverlay.addEventListener('click', function(e) {
+      if (e.target === photoPopupOverlay) {
+        photoPopupOverlay.classList.remove('active');
+      }
     });
   </script>
 </body>
