@@ -14,6 +14,12 @@
     <span class="firework firework-4"></span>
   </div>
   <div class="confetti" aria-hidden="true"></div>
+  
+  <!-- Fullscreen Photo Modal -->
+  <div class="photo-modal" id="photoModal">
+    <img id="modalImage" src="" alt="Fullscreen Photo" />
+  </div>
+  
   <div class="page">
     <header class="hero">
       <h1> Selamat Ulang Tahun Mantan Pacarku,<br>
@@ -67,7 +73,7 @@
       Masih cantik, masih kalem, masih sabar menghadapi aku.
       Masa-masa di mana semuanya terlihat indah dan penuh harapan.
     </p>
-    <img src="foto-istri-single.jpg" alt="Foto Givanny Permata Sari (saat single)" />
+    <img class="highlight-photo" src="foto-istri-single.jpg" alt="Foto Givanny Permata Sari (saat single)" />
   </div>
 
   <div class="photo-card">
@@ -76,7 +82,7 @@
       Sekarang sudah naik level: istri, ibu, manager rumah tangga,
       sekaligus CEO yang mengatur hidup suaminya setiap hari.
     </p>
-    <img src="foto-istri-marriage.jpg" alt="Foto Givanny Permata Sari (setelah marriage)" />
+    <img class="highlight-photo" src="foto-istri-marriage.jpg" alt="Foto Givanny Permata Sari (setelah marriage)" />
   </div>
 </section>
   </div>
@@ -111,19 +117,19 @@
       window.setTimeout(() => sparkle.remove(), 700);
     });
 
-    // Photo focus effect - highlight hanya foto yang di-hover, redup semua yang lain
-    const photos = document.querySelectorAll('.photo-card img');
-    const photoCards = document.querySelectorAll('.photo-card');
-    
-    photos.forEach((photo, index) => {
+    // Fullscreen photo modal effect
+    const highlightPhotos = document.querySelectorAll('.highlight-photo');
+    const photoModal = document.getElementById('photoModal');
+    const modalImage = document.getElementById('modalImage');
+
+    highlightPhotos.forEach(photo => {
       photo.addEventListener('mouseenter', function() {
-        document.body.classList.add('photo-focus');
-        photoCards[index].classList.add('active');
+        modalImage.src = this.src;
+        photoModal.classList.add('active');
       });
-      
+
       photo.addEventListener('mouseleave', function() {
-        document.body.classList.remove('photo-focus');
-        photoCards[index].classList.remove('active');
+        photoModal.classList.remove('active');
       });
     });
   </script>
