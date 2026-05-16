@@ -18,10 +18,27 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: radial-gradient(circle at top, #fff7f0, #ffebe7 28%, #ffe1d8 58%, #fef2e3 100%);
+  background: url('background_ultah.jpg') center/cover fixed;
+  background-attachment: fixed;
   color: var(--text);
   overflow-x: hidden;
   min-height: 100vh;
+  position: relative;
+}
+
+/* Dimming overlay untuk background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 0;
+  transition: background-color 0.3s ease;
+  pointer-events: none;
+}
+
+body.dimmed::before {
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .fireworks {
@@ -204,6 +221,7 @@ body {
 
 .photo-card {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
 }
 
 .message {
@@ -251,6 +269,13 @@ body {
   object-fit: cover;
   border-radius: 18px;
   border: 2px solid rgba(216, 109, 122, 0.18);
+  transition: filter 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.photo-card img:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 20px rgba(216, 109, 122, 0.4);
 }
 
 .note {
