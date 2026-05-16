@@ -18,27 +18,13 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: url('background_ultah.jpg') center/cover fixed;
+  background: linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 225, 230, 0.95) 100%), url('background_ultah.jpg') center/cover fixed;
   background-attachment: fixed;
+  background-blend-mode: overlay;
   color: var(--text);
   overflow-x: hidden;
   min-height: 100vh;
   position: relative;
-}
-
-/* Dimming overlay untuk background */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0);
-  z-index: 0;
-  transition: background-color 0.3s ease;
-  pointer-events: none;
-}
-
-body.dimmed::before {
-  background: rgba(0, 0, 0, 0.7);
 }
 
 .fireworks {
@@ -179,6 +165,7 @@ body.dimmed::before {
   border: 1px solid rgba(255, 255, 255, 0.7);
   position: relative;
   overflow: hidden;
+  transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
 .hero::before {
@@ -220,7 +207,7 @@ body.dimmed::before {
 }
 
 .photo-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.3s ease, opacity 0.3s ease;
   position: relative;
 }
 
@@ -230,6 +217,7 @@ body.dimmed::before {
   border-radius: 28px;
   background: rgba(255, 255, 255, 0.88);
   border: 1px solid rgba(210, 109, 122, 0.22);
+  transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
 .message p {
@@ -255,12 +243,14 @@ body.dimmed::before {
 .photo-card h2 {
   margin-top: 0;
   color: var(--primary);
+  transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
 .photo-card p {
   margin: 0 0 18px;
   font-size: 0.96rem;
   color: #6c4148;
+  transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
 .photo-card img {
@@ -269,13 +259,40 @@ body.dimmed::before {
   object-fit: cover;
   border-radius: 18px;
   border: 2px solid rgba(216, 109, 122, 0.18);
-  transition: filter 0.3s ease, box-shadow 0.3s ease;
+  transition: filter 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   cursor: pointer;
 }
 
 .photo-card img:hover {
+  filter: brightness(1.15) drop-shadow(0 0 25px rgba(216, 109, 122, 0.6));
+  transform: scale(1.02);
+}
+
+/* Dimming effect */
+body.photo-focus .hero,
+body.photo-focus .message {
+  filter: blur(4px) brightness(0.4);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+body.photo-focus .photo-card {
+  filter: blur(4px) brightness(0.3);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+body.photo-focus .photo-card.active {
+  filter: none;
+  brightness: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.photo-focus .photo-card.active img {
   filter: brightness(1.1);
-  box-shadow: 0 0 20px rgba(216, 109, 122, 0.4);
+  transform: scale(1.03);
+  box-shadow: 0 0 30px rgba(216, 109, 122, 0.5);
 }
 
 .note {
@@ -283,6 +300,7 @@ body.dimmed::before {
   text-align: center;
   font-size: 0.95rem;
   color: #5d3d42;
+  transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
 @media (max-width: 640px) {
