@@ -7,16 +7,15 @@
   --accent: #f3aab1;
 }
 
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-body {
+body{
   margin:0;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
   color:var(--text);
 
-  /* BACKGROUND FIX */
   background-image:url("background_ultah.jpg");
   background-size:cover;
   background-position:center;
@@ -63,7 +62,6 @@ body {
 .message{
   margin:30px 0;
   padding:26px 28px;
-
   background:rgba(255,255,255,0.9);
   border-radius:24px;
 }
@@ -85,7 +83,6 @@ body {
   border-radius:20px;
   padding:20px;
   text-align:center;
-
   box-shadow:0 10px 30px rgba(0,0,0,0.15);
   transition:.3s;
 }
@@ -105,47 +102,34 @@ body {
   transition:.35s;
 }
 
-.highlight-photo:hover{
-  transform:scale(1.05);
-}
+/* HOVER POPUP */
 
-/* POPUP PHOTO */
-
-.photo-modal{
+.photo-card::after{
+  content:"";
   position:fixed;
   inset:0;
-
   background:rgba(0,0,0,0.85);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
   opacity:0;
-  visibility:hidden;
-
-  transition:0.3s;
-
-  z-index:9999;
+  pointer-events:none;
+  transition:.25s;
+  z-index:900;
 }
 
-.photo-modal.active{
+.photo-card:hover::after{
   opacity:1;
-  visibility:visible;
 }
 
-.photo-modal img{
-  max-width:90vw;
-  max-height:90vh;
-
-  border-radius:12px;
-
-  transform:scale(.8);
-  transition:0.3s;
-}
-
-.photo-modal.active img{
-  transform:scale(1);
+.photo-card:hover .highlight-photo{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) scale(1.05);
+  width:auto;
+  max-width:85vw;
+  max-height:85vh;
+  border-radius:14px;
+  box-shadow:0 0 60px rgba(0,0,0,0.6);
+  z-index:1000;
 }
 
 /* NOTE */
