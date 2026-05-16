@@ -18,9 +18,12 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 225, 230, 0.95) 100%), url('background_ultah.jpg') center/cover fixed;
-  background-attachment: fixed;
-  background-blend-mode: overlay;
+  background-color: #fff8f2;
+  background-image: url('background_ultah.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-attachment: scroll;
   color: var(--text);
   overflow-x: hidden;
   min-height: 100vh;
@@ -182,6 +185,8 @@ body {
   letter-spacing: 0.03em;
   animation: glow-title 3.5s ease-in-out infinite;
   text-shadow: 0 0 18px rgba(255, 238, 125, 0.35), 0 0 30px rgba(255, 136, 151, 0.25);
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes glow-title {
@@ -199,6 +204,8 @@ body {
   margin: 16px auto 0;
   font-size: 1.1rem;
   color: #7f4a55;
+  position: relative;
+  z-index: 1;
 }
 
 .photo-card:hover {
@@ -268,7 +275,7 @@ body {
   transform: scale(1.02);
 }
 
-/* Dimming effect */
+/* Dimming effect - redup semua konten saat hover foto */
 body.photo-focus .hero,
 body.photo-focus .message {
   filter: blur(4px) brightness(0.4);
