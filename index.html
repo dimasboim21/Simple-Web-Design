@@ -60,7 +60,7 @@
     </em>
   </p>
 </section>
-   <section class="photo-section">
+    <section class="photo-section">
   <div class="photo-card">
     <h2>Sebelum Menikah (Masih Pacaran)</h2>
     <p>
@@ -109,6 +109,22 @@
       sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
       document.body.appendChild(sparkle);
       window.setTimeout(() => sparkle.remove(), 700);
+    });
+
+    // Photo focus effect - highlight hanya foto yang di-hover, redup semua yang lain
+    const photos = document.querySelectorAll('.photo-card img');
+    const photoCards = document.querySelectorAll('.photo-card');
+    
+    photos.forEach((photo, index) => {
+      photo.addEventListener('mouseenter', function() {
+        document.body.classList.add('photo-focus');
+        photoCards[index].classList.add('active');
+      });
+      
+      photo.addEventListener('mouseleave', function() {
+        document.body.classList.remove('photo-focus');
+        photoCards[index].classList.remove('active');
+      });
     });
   </script>
 </body>
