@@ -54,12 +54,20 @@ terlupakan bagi kita berdua.
 
 <div class="photo-card">
 <h2>Sebelum Menikah (Masih Pacaran)</h2>
-<img class="highlight-photo" src="foto-istri-single.jpg">
+<p>
+Masih cantik, masih kalem, masih sabar menghadapi aku.
+</p>
+
+<img class="highlight-photo" src="foto-istri-single.jpg"/>
 </div>
 
 <div class="photo-card">
 <h2>Setelah Menikah (Anak 1, Menuju 2)</h2>
-<img class="highlight-photo" src="foto-istri-marriage.jpg">
+<p>
+Sekarang sudah naik level: istri, ibu, manager rumah tangga.
+</p>
+
+<img class="highlight-photo" src="foto-istri-marriage.jpg"/>
 </div>
 
 </section>
@@ -67,13 +75,27 @@ terlupakan bagi kita berdua.
 </div>
 
 
-<!-- YOUTUBE PLAYER (hidden background music) -->
-<div id="youtubePlayer" style="display:none;"></div>
+<!-- YOUTUBE AUDIO (HIDDEN PLAYER) -->
+<iframe
+id="ytMusic"
+width="0"
+height="0"
+src="https://www.youtube.com/embed/VEe_yIbW64w?enablejsapi=1&loop=1&playlist=VEe_yIbW64w"
+frameborder="0"
+allow="autoplay">
+</iframe>
 
 
+<!-- MUSIC PLAYER -->
 <div class="music-player">
+
+<div style="font-size:12px; font-weight:600; margin-bottom:4px;">
+🎵 Stay With Me — Miki Matsubara
+</div>
+
 <button id="playPauseBtn">▶ Play</button>
 <button id="muteBtn">🔊 Mute</button>
+
 </div>
 
 
@@ -81,36 +103,81 @@ terlupakan bagi kita berdua.
 
 <script>
 
-const colors = ['#ffea75','#ff7f7f','#89d6ff','#ffb6c1','#ffd66b'];
+let player;
+
+function onYouTubeIframeAPIReady() {
+player = new YT.Player('ytMusic');
+}
+
+const playBtn = document.getElementById("playPauseBtn");
+const muteBtn = document.getElementById("muteBtn");
+
+let isPlaying = false;
+
+playBtn.onclick = function(){
+
+if(!isPlaying){
+player.playVideo();
+playBtn.textContent = "⏸ Pause";
+isPlaying = true;
+}else{
+player.pauseVideo();
+playBtn.textContent = "▶ Play";
+isPlaying = false;
+}
+
+}
+
+muteBtn.onclick = function(){
+
+if(player.isMuted()){
+player.unMute();
+muteBtn.textContent = "🔊 Mute";
+}else{
+player.mute();
+muteBtn.textContent = "🔇 Unmute";
+}
+
+}
+
 
 /* CONFETTI */
+
+const colors = ['#ffea75','#ff7f7f','#89d6ff','#ffb6c1','#ffd66b'];
+
 function createConfetti(){
-const container = document.querySelector('.confetti');
 
-for(let i = 0; i < 30; i++){
-const piece = document.createElement('span');
+const container=document.querySelector('.confetti');
 
-piece.className = 'confetti-piece';
-piece.style.left = Math.random()*100+'%';
-piece.style.background = colors[Math.floor(Math.random()*colors.length)];
-piece.style.animationDelay = Math.random()*1.5+'s';
-piece.style.animationDuration = 2+Math.random()*2+'s';
+for(let i=0;i<30;i++){
+
+const piece=document.createElement('span');
+
+piece.className='confetti-piece';
+piece.style.left=Math.random()*100+'%';
+piece.style.background=colors[Math.floor(Math.random()*colors.length)];
+piece.style.animationDelay=Math.random()*1.5+'s';
+piece.style.animationDuration=2+Math.random()*2+'s';
 
 container.appendChild(piece);
-}
+
 }
 
-document.addEventListener('DOMContentLoaded', createConfetti);
+}
+
+document.addEventListener('DOMContentLoaded',createConfetti);
 
 
 /* CURSOR SPARK */
-document.addEventListener('mousemove', function(e){
 
-const spark = document.createElement('span');
-spark.className = 'cursor-spark';
-spark.style.left = e.pageX+'px';
-spark.style.top = e.pageY+'px';
-spark.style.background = colors[Math.floor(Math.random()*colors.length)];
+document.addEventListener('mousemove',function(e){
+
+const spark=document.createElement('span');
+
+spark.className='cursor-spark';
+spark.style.left=e.pageX+'px';
+spark.style.top=e.pageY+'px';
+spark.style.background=colors[Math.floor(Math.random()*colors.length)];
 
 document.body.appendChild(spark);
 
@@ -125,64 +192,19 @@ const modal=document.getElementById('photoModal');
 const modalImg=document.getElementById('modalImage');
 
 document.querySelectorAll('.highlight-photo').forEach(img=>{
+
 img.addEventListener('click',()=>{
+
 modalImg.src=img.src;
 modal.classList.add('active');
+
 });
+
 });
 
 modal.addEventListener('click',()=>{
+
 modal.classList.remove('active');
-});
-
-
-/* YOUTUBE MUSIC */
-
-let player;
-let isPlaying=false;
-
-function onYouTubeIframeAPIReady(){
-
-player = new YT.Player('youtubePlayer',{
-height:'0',
-width:'0',
-videoId:'P3maspwH6tM', // ganti ini
-playerVars:{
-'autoplay':0,
-'controls':0,
-'loop':1,
-'playlist':'P3maspwH6tM'
-}
-});
-
-}
-
-const playBtn=document.getElementById("playPauseBtn");
-const muteBtn=document.getElementById("muteBtn");
-
-playBtn.addEventListener("click",()=>{
-
-if(!isPlaying){
-player.playVideo();
-playBtn.textContent="⏸ Pause";
-isPlaying=true;
-}else{
-player.pauseVideo();
-playBtn.textContent="▶ Play";
-isPlaying=false;
-}
-
-});
-
-muteBtn.addEventListener("click",()=>{
-
-if(player.isMuted()){
-player.unMute();
-muteBtn.textContent="🔊 Mute";
-}else{
-player.mute();
-muteBtn.textContent="🔇 Unmute";
-}
 
 });
 
