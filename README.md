@@ -1,8 +1,24 @@
 # Simple-Web-Design
-Situs web sederhana untuk ucapan ulang tahun kepada Givanny Permata Sari.
 
-## Cara pakai
-1. Letakkan `index.html` dan `styles.css` di root repository.
-2. Masukkan foto istri Anda dengan nama file `foto-istri.jpg` di folder yang sama.
-3. Masukkan foto kue ulang tahun dengan nama file `cake-ulang-tahun.jpg` di folder yang sama.
-4. Aktifkan GitHub Pages pada branch `main` dan direktori root untuk menampilkan situs.
+Repository untuk berbagai mockup dan design web yang sederhana namun menarik.
+
+## 📂 Proyek
+
+### 🎂 Ultah Card Givanny
+Halaman ucapan ulang tahun dengan animasi fireworks, confetti, dan photo popup yang mobile-friendly.
+
+👉 **[Lihat Proyek](./ultah-card-givanny/)**
+
+**Akses**: `ultah-card-givanny/index.html`
+
+### ✨ Fitur:
+- 🎆 Animasi fireworks dan confetti
+- 📸 Photo popup saat diklik
+- 📱 Fully responsive design
+- 🎨 Modern UI dengan glass effect
+- ✨ Cursor spark effects
+- 🖼️ Fixed background image
+
+---
+
+Dibuat dengan ❤️ oleh Dimas Eko Saputra
