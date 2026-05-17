@@ -189,34 +189,33 @@ modal.classList.remove('active');
   </section>
 
 </div> <!-- penutup .page -->
+/* PHOTO MODAL tetap di bawahnya */
 
-<!-- AUDIO -->
-<audio id="bgMusic" loop>
-  <source src="mariko tone - stay with me.mp3" type="audio/mpeg">
+</script>
+
+  <audio id="bgMusic" loop>
+  <source src="mariko-tone-stay-with-me.mp3" type="audio/mpeg">
 </audio>
 
-<!-- MUSIC CONTROL -->
 <div class="music-player">
   <button id="playPauseBtn">▶ Play</button>
   <button id="muteBtn">🔊 Mute</button>
 </div>
 
 <script>
-
-const colors = ['#ffea75','#ff7f7f','#89d6ff','#ffb6c1','#ffd66b'];
-
-/* kode confetti & cursor tetap di sini */
-
-
-/* MUSIC CONTROL */
 const music = document.getElementById("bgMusic");
 const playBtn = document.getElementById("playPauseBtn");
 const muteBtn = document.getElementById("muteBtn");
 
-playBtn.addEventListener("click", () => {
-  if(music.paused){
-    music.play();
-    playBtn.textContent = "⏸ Pause";
+playBtn.addEventListener("click", async () => {
+  if (music.paused) {
+    try {
+      await music.play();
+      playBtn.textContent = "⏸ Pause";
+    } catch (err) {
+      console.error("Audio gagal diputar:", err);
+      alert("Audio gagal diputar. Cek file MP3 dan path-nya.");
+    }
   } else {
     music.pause();
     playBtn.textContent = "▶ Play";
@@ -227,10 +226,7 @@ muteBtn.addEventListener("click", () => {
   music.muted = !music.muted;
   muteBtn.textContent = music.muted ? "🔇 Unmute" : "🔊 Mute";
 });
-
-
-/* PHOTO MODAL tetap di bawahnya */
-
+  
 </script>
 
 </body>
