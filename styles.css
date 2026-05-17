@@ -16,14 +16,15 @@ body{
   font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
   color:var(--text);
 
-background-image:url("background_ultah.jpg");
-background-size:85% auto;
-background-position:top center;
-background-repeat:no-repeat;
-background-attachment:scroll;
-
-min-height:100vh;
-overflow-x:hidden;
+  background-image:url("background_ultah.jpg");
+  background-size:85% auto;
+  background-position:top center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-color: var(--bg);
+  
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
 .page{
@@ -104,35 +105,29 @@ overflow-x:hidden;
   transition:.35s;
 }
 
-/* HOVER POPUP */
+/* PHOTO MODAL - Click to open */
 
-.photo-card::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.85);
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
-  z-index:900;
+.photo-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-.photo-card:hover::after{
-  opacity:1;
+.photo-modal.active {
+  display: flex;
 }
 
-.photo-card:hover .highlight-photo{
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:auto;
-  max-width:75vw;
-  max-height:80vh;
-  object-fit:contain;
-  border-radius:14px;
-  box-shadow:0 0 60px rgba(0,0,0,0.6);
-  z-index:1000;
+.photo-modal img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
 }
 
 /* NOTE */
@@ -153,6 +148,10 @@ overflow-x:hidden;
 
   .hero{
     padding:34px 20px;
+  }
+
+  body {
+    background-size: 100% auto;
   }
 
 }
