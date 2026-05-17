@@ -176,26 +176,29 @@ modal.classList.remove('active');
 
 /* MUSIC CONTROL */
 
+<audio id="bgMusic" loop preload="auto">
+  <source src="./mariko-tone-stay-with-me.mp3" type="audio/mpeg">
+</audio>
+
 const music = document.getElementById("bgMusic");
 const playBtn = document.getElementById("playPauseBtn");
 const muteBtn = document.getElementById("muteBtn");
 
-document.addEventListener("click", () => {
-  music.load();
-}, { once: true });
+let isPlaying = false;
 
 playBtn.addEventListener("click", async () => {
   try {
-    if (music.paused) {
+    if (!isPlaying) {
       await music.play();
+      isPlaying = true;
       playBtn.textContent = "⏸ Pause";
     } else {
       music.pause();
+      isPlaying = false;
       playBtn.textContent = "▶ Play";
     }
-  } catch (e) {
-    console.log("Play error:", e);
-    alert("Audio diblokir browser atau file tidak support.");
+  } catch (err) {
+    console.log("Play error:", err);
   }
 });
 
