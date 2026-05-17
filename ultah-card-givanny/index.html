@@ -176,30 +176,34 @@ modal.classList.remove('active');
 
 /* MUSIC CONTROL */
 
-const music=document.getElementById("bgMusic");
-const playBtn=document.getElementById("playPauseBtn");
-const muteBtn=document.getElementById("muteBtn");
+const music = document.getElementById("bgMusic");
+const playBtn = document.getElementById("playPauseBtn");
+const muteBtn = document.getElementById("muteBtn");
 
-playBtn.addEventListener("click",async()=>{
-if(music.paused){
-try{
-await music.play();
-playBtn.textContent="⏸ Pause";
-}catch(err){
-console.error("Audio gagal diputar:",err);
-alert("Audio gagal diputar. Cek file MP3 dan path-nya.");
-}
-}else{
-music.pause();
-playBtn.textContent="▶ Play";
-}
+document.addEventListener("click", () => {
+  music.load();
+}, { once: true });
+
+playBtn.addEventListener("click", async () => {
+  try {
+    if (music.paused) {
+      await music.play();
+      playBtn.textContent = "⏸ Pause";
+    } else {
+      music.pause();
+      playBtn.textContent = "▶ Play";
+    }
+  } catch (e) {
+    console.log("Play error:", e);
+    alert("Audio diblokir browser atau file tidak support.");
+  }
 });
 
-muteBtn.addEventListener("click",()=>{
-music.muted=!music.muted;
-muteBtn.textContent=music.muted?"🔇 Unmute":"🔊 Mute";
+muteBtn.addEventListener("click", () => {
+  music.muted = !music.muted;
+  muteBtn.textContent = music.muted ? "🔇 Unmute" : "🔊 Mute";
 });
-
+  
 </script>
 
 </body>
