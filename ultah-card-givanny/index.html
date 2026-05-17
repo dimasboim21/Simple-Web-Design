@@ -48,72 +48,36 @@ membawa lebih banyak tawa, pelukan hangat, serta kenangan indah yang tak
 terlupakan bagi kita berdua.
 </p>
 
-<p>
-<strong>
-اللَّهُمَّ بَارِكْ لَهَا فِي عُمُرِهَا،
-وَارْزُقْهَا السَّعَادَةَ وَالصِّحَّةَ
-وَالتَّوْفِيقَ فِي كُلِّ خُطُوَاتِهَا
-</strong>
-</p>
-
-<p>
-<em>
-Ya Allah, berkahilah umurnya, karuniakan kepadanya kebahagiaan,
-kesehatan, dan keberhasilan di setiap langkah hidupnya.
-</em>
-</p>
-
-<p>
-<strong>
-اللَّهُمَّ احْفَظْهَا لِي وَاجْعَلْ قَلْبَهَا
-دَائِمًا مَمْلُوءًا بِالْفَرَحِ وَالْمَحَبَّةِ
-</strong>
-</p>
-
-<p>
-<em>
-Ya Allah, jagalah dia untukku dan penuhilah hatinya
-dengan kebahagiaan serta cinta sepanjang hidupnya.
-</em>
-</p>
-
 </section>
 
 <section class="photo-section">
 
 <div class="photo-card">
 <h2>Sebelum Menikah (Masih Pacaran)</h2>
-<p>
-Masih cantik, masih kalem, masih sabar menghadapi aku.
-Masa-masa di mana semuanya terlihat indah dan penuh harapan.
-</p>
-
-<img class="highlight-photo" src="foto-istri-single.jpg" alt="Foto Givanny saat single"/>
+<img class="highlight-photo" src="foto-istri-single.jpg">
 </div>
 
 <div class="photo-card">
 <h2>Setelah Menikah (Anak 1, Menuju 2)</h2>
-<p>
-Sekarang sudah naik level: istri, ibu, manager rumah tangga,
-sekaligus CEO yang mengatur hidup suaminya setiap hari.
-</p>
-
-<img class="highlight-photo" src="foto-istri-marriage.jpg" alt="Foto Givanny setelah menikah"/>
+<img class="highlight-photo" src="foto-istri-marriage.jpg">
 </div>
 
 </section>
 
 </div>
 
-<!-- MUSIC -->
-<audio id="bgMusic" loop preload="auto">
-  <source src="./mariko-tone-stay-with-me.mp3" type="audio/mpeg">
-</audio>
+
+<!-- YOUTUBE PLAYER (hidden background music) -->
+<div id="youtubePlayer" style="display:none;"></div>
+
 
 <div class="music-player">
 <button id="playPauseBtn">▶ Play</button>
 <button id="muteBtn">🔊 Mute</button>
 </div>
+
+
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
 
@@ -127,10 +91,10 @@ for(let i = 0; i < 30; i++){
 const piece = document.createElement('span');
 
 piece.className = 'confetti-piece';
-piece.style.left = Math.random() * 100 + '%';
-piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-piece.style.animationDelay = Math.random() * 1.5 + 's';
-piece.style.animationDuration = 2 + Math.random() * 2 + 's';
+piece.style.left = Math.random()*100+'%';
+piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+piece.style.animationDelay = Math.random()*1.5+'s';
+piece.style.animationDuration = 2+Math.random()*2+'s';
 
 container.appendChild(piece);
 }
@@ -138,67 +102,88 @@ container.appendChild(piece);
 
 document.addEventListener('DOMContentLoaded', createConfetti);
 
+
 /* CURSOR SPARK */
 document.addEventListener('mousemove', function(e){
 
 const spark = document.createElement('span');
 spark.className = 'cursor-spark';
-spark.style.left = e.pageX + 'px';
-spark.style.top = e.pageY + 'px';
-spark.style.background = colors[Math.floor(Math.random() * colors.length)];
+spark.style.left = e.pageX+'px';
+spark.style.top = e.pageY+'px';
+spark.style.background = colors[Math.floor(Math.random()*colors.length)];
 
 document.body.appendChild(spark);
 
-setTimeout(() => spark.remove(), 700);
+setTimeout(()=>spark.remove(),700);
+
 });
 
-/* PHOTO MODAL */
-const modal = document.getElementById('photoModal');
-const modalImg = document.getElementById('modalImage');
 
-document.querySelectorAll('.highlight-photo').forEach(img => {
-img.addEventListener('click', () => {
-modalImg.src = img.src;
+/* PHOTO MODAL */
+
+const modal=document.getElementById('photoModal');
+const modalImg=document.getElementById('modalImage');
+
+document.querySelectorAll('.highlight-photo').forEach(img=>{
+img.addEventListener('click',()=>{
+modalImg.src=img.src;
 modal.classList.add('active');
 });
 });
 
-modal.addEventListener('click', () => {
+modal.addEventListener('click',()=>{
 modal.classList.remove('active');
 });
 
-/* MUSIC CONTROL (FIXED) */
-const music = document.getElementById("bgMusic");
-const playBtn = document.getElementById("playPauseBtn");
-const muteBtn = document.getElementById("muteBtn");
 
-function updateButton() {
-  if (music.paused) {
-    playBtn.textContent = "▶ Play";
-  } else {
-    playBtn.textContent = "⏸ Pause";
-  }
+/* YOUTUBE MUSIC */
+
+let player;
+let isPlaying=false;
+
+function onYouTubeIframeAPIReady(){
+
+player = new YT.Player('youtubePlayer',{
+height:'0',
+width:'0',
+videoId:'P3maspwH6tM', // ganti ini
+playerVars:{
+'autoplay':0,
+'controls':0,
+'loop':1,
+'playlist':'P3maspwH6tM'
 }
-
-playBtn.addEventListener("click", async () => {
-  try {
-    if (music.paused) {
-      await music.play();
-    } else {
-      music.pause();
-    }
-    updateButton();
-  } catch (err) {
-    console.log("Audio error:", err);
-  }
 });
 
-music.addEventListener("play", updateButton);
-music.addEventListener("pause", updateButton);
+}
 
-muteBtn.addEventListener("click", () => {
-  music.muted = !music.muted;
-  muteBtn.textContent = music.muted ? "🔇 Unmute" : "🔊 Mute";
+const playBtn=document.getElementById("playPauseBtn");
+const muteBtn=document.getElementById("muteBtn");
+
+playBtn.addEventListener("click",()=>{
+
+if(!isPlaying){
+player.playVideo();
+playBtn.textContent="⏸ Pause";
+isPlaying=true;
+}else{
+player.pauseVideo();
+playBtn.textContent="▶ Play";
+isPlaying=false;
+}
+
+});
+
+muteBtn.addEventListener("click",()=>{
+
+if(player.isMuted()){
+player.unMute();
+muteBtn.textContent="🔊 Mute";
+}else{
+player.mute();
+muteBtn.textContent="🔇 Unmute";
+}
+
 });
 
 </script>
