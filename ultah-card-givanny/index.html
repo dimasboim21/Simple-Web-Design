@@ -88,11 +88,7 @@ Masih cantik, masih kalem, masih sabar menghadapi aku.
 Masa-masa di mana semuanya terlihat indah dan penuh harapan.
 </p>
 
-<img
-class="highlight-photo"
-src="foto-istri-single.jpg"
-alt="Foto Givanny Permata Sari saat single"
-/>
+<img class="highlight-photo" src="foto-istri-single.jpg" alt="Foto Givanny saat single"/>
 </div>
 
 <div class="photo-card">
@@ -102,19 +98,16 @@ Sekarang sudah naik level: istri, ibu, manager rumah tangga,
 sekaligus CEO yang mengatur hidup suaminya setiap hari.
 </p>
 
-<img
-class="highlight-photo"
-src="foto-istri-marriage.jpg"
-alt="Foto Givanny Permata Sari setelah menikah"
-/>
+<img class="highlight-photo" src="foto-istri-marriage.jpg" alt="Foto Givanny setelah menikah"/>
 </div>
 
 </section>
 
 </div>
 
-<audio id="bgMusic" loop>
-<source src="mariko-tone-stay-with-me.mp3" type="audio/mpeg">
+<!-- MUSIC -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="./mariko-tone-stay-with-me.mp3" type="audio/mpeg">
 </audio>
 
 <div class="music-player">
@@ -126,6 +119,7 @@ alt="Foto Givanny Permata Sari setelah menikah"
 
 const colors = ['#ffea75','#ff7f7f','#89d6ff','#ffb6c1','#ffd66b'];
 
+/* CONFETTI */
 function createConfetti(){
 const container=document.querySelector('.confetti');
 
@@ -144,6 +138,7 @@ container.appendChild(piece);
 
 document.addEventListener('DOMContentLoaded',createConfetti);
 
+/* CURSOR SPARK */
 document.addEventListener('mousemove',function(e){
 
 const spark=document.createElement('span');
@@ -155,11 +150,9 @@ spark.style.background=colors[Math.floor(Math.random()*colors.length)];
 document.body.appendChild(spark);
 
 setTimeout(()=>spark.remove(),700);
-
 });
 
 /* PHOTO MODAL */
-
 const modal=document.getElementById('photoModal');
 const modalImg=document.getElementById('modalImage');
 
@@ -175,11 +168,6 @@ modal.classList.remove('active');
 });
 
 /* MUSIC CONTROL */
-
-<audio id="bgMusic" loop preload="auto">
-  <source src="./mariko-tone-stay-with-me.mp3" type="audio/mpeg">
-</audio>
-
 const music = document.getElementById("bgMusic");
 const playBtn = document.getElementById("playPauseBtn");
 const muteBtn = document.getElementById("muteBtn");
@@ -206,7 +194,7 @@ muteBtn.addEventListener("click", () => {
   music.muted = !music.muted;
   muteBtn.textContent = music.muted ? "🔇 Unmute" : "🔊 Mute";
 });
-  
+
 </script>
 
 </body>
