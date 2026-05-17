@@ -121,74 +121,80 @@ const colors = ['#ffea75','#ff7f7f','#89d6ff','#ffb6c1','#ffd66b'];
 
 /* CONFETTI */
 function createConfetti(){
-const container=document.querySelector('.confetti');
+const container = document.querySelector('.confetti');
 
-for(let i=0;i<30;i++){
-const piece=document.createElement('span');
+for(let i = 0; i < 30; i++){
+const piece = document.createElement('span');
 
-piece.className='confetti-piece';
-piece.style.left=Math.random()*100+'%';
-piece.style.background=colors[Math.floor(Math.random()*colors.length)];
-piece.style.animationDelay=Math.random()*1.5+'s';
-piece.style.animationDuration=2+Math.random()*2+'s';
+piece.className = 'confetti-piece';
+piece.style.left = Math.random() * 100 + '%';
+piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+piece.style.animationDelay = Math.random() * 1.5 + 's';
+piece.style.animationDuration = 2 + Math.random() * 2 + 's';
 
 container.appendChild(piece);
 }
 }
 
-document.addEventListener('DOMContentLoaded',createConfetti);
+document.addEventListener('DOMContentLoaded', createConfetti);
 
 /* CURSOR SPARK */
-document.addEventListener('mousemove',function(e){
+document.addEventListener('mousemove', function(e){
 
-const spark=document.createElement('span');
-spark.className='cursor-spark';
-spark.style.left=e.pageX+'px';
-spark.style.top=e.pageY+'px';
-spark.style.background=colors[Math.floor(Math.random()*colors.length)];
+const spark = document.createElement('span');
+spark.className = 'cursor-spark';
+spark.style.left = e.pageX + 'px';
+spark.style.top = e.pageY + 'px';
+spark.style.background = colors[Math.floor(Math.random() * colors.length)];
 
 document.body.appendChild(spark);
 
-setTimeout(()=>spark.remove(),700);
+setTimeout(() => spark.remove(), 700);
 });
 
 /* PHOTO MODAL */
-const modal=document.getElementById('photoModal');
-const modalImg=document.getElementById('modalImage');
+const modal = document.getElementById('photoModal');
+const modalImg = document.getElementById('modalImage');
 
-document.querySelectorAll('.highlight-photo').forEach(img=>{
-img.addEventListener('click',()=>{
-modalImg.src=img.src;
+document.querySelectorAll('.highlight-photo').forEach(img => {
+img.addEventListener('click', () => {
+modalImg.src = img.src;
 modal.classList.add('active');
 });
 });
 
-modal.addEventListener('click',()=>{
+modal.addEventListener('click', () => {
 modal.classList.remove('active');
 });
 
-/* MUSIC CONTROL */
+/* MUSIC CONTROL (FIXED) */
 const music = document.getElementById("bgMusic");
 const playBtn = document.getElementById("playPauseBtn");
 const muteBtn = document.getElementById("muteBtn");
 
-let isPlaying = false;
+function updateButton() {
+  if (music.paused) {
+    playBtn.textContent = "▶ Play";
+  } else {
+    playBtn.textContent = "⏸ Pause";
+  }
+}
 
 playBtn.addEventListener("click", async () => {
   try {
-    if (!isPlaying) {
+    if (music.paused) {
       await music.play();
-      isPlaying = true;
-      playBtn.textContent = "⏸ Pause";
     } else {
       music.pause();
-      isPlaying = false;
-      playBtn.textContent = "▶ Play";
     }
+    updateButton();
   } catch (err) {
-    console.log("Play error:", err);
+    console.log("Audio error:", err);
   }
 });
+
+music.addEventListener("play", updateButton);
+music.addEventListener("pause", updateButton);
 
 muteBtn.addEventListener("click", () => {
   music.muted = !music.muted;
