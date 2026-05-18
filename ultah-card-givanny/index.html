@@ -64,7 +64,7 @@ Masih cantik, masih kalem, masih sabar menghadapi aku.
 <div class="photo-card">
 <h2>Setelah Menikah (Anak 1, Menuju 2)</h2>
 <p>
-Sekarang sudah naik level: istri, ibu, manager rumah tangga.
+Sekarang sudah naik level: istri, ibu, manager rumah tangga, CEO.
 </p>
 
 <img class="highlight-photo" src="foto-istri-marriage.jpg"/>
@@ -76,8 +76,14 @@ Sekarang sudah naik level: istri, ibu, manager rumah tangga.
 
 
 <!-- YOUTUBE AUDIO (HIDDEN PLAYER) -->
-<div id="ytMusic" style="width:0;height:0;"></div>
-
+<iframe
+id="ytMusic"
+width="0"
+height="0"
+src="https://www.youtube.com/embed/P3maspwH6tM?enablejsapi=1&loop=1&playlist=P3maspwH6tM&playsinline=1"
+frameborder="0"
+allow="autoplay; encrypted-media">
+</iframe>
 
 <!-- MUSIC PLAYER -->
 <div class="music-player">
@@ -91,78 +97,63 @@ Sekarang sudah naik level: istri, ibu, manager rumah tangga.
 
 </div>
 
-
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
 
 let player;
-let isPlaying=false;
+let isPlaying = false;
+let isMuted = false;
 
 function onYouTubeIframeAPIReady(){
 
-player=new YT.Player('ytMusic',{
-height:'0',
-width:'0',
-videoId:'P3maspwH6tM',
+player = new YT.Player('ytMusic',{
 playerVars:{
-'autoplay':0,
-'controls':0,
-'loop':1,
-'playlist':'P3maspwH6tM',
-'playsinline':1
+playsinline:1
 }
 });
 
 }
 
-const playBtn=document.getElementById("playPauseBtn");
-const muteBtn=document.getElementById("muteBtn");
+const playBtn = document.getElementById("playPauseBtn");
+const muteBtn = document.getElementById("muteBtn");
 
-
-playBtn.onclick=function(){
+playBtn.addEventListener("click",function(){
 
 if(!player) return;
 
 if(!isPlaying){
-
 player.playVideo();
 playBtn.textContent="⏸ Pause";
 isPlaying=true;
-
 }else{
-
 player.pauseVideo();
 playBtn.textContent="▶ Play";
 isPlaying=false;
-
 }
 
-}
+});
 
-
-muteBtn.onclick=function(){
+muteBtn.addEventListener("click",function(){
 
 if(!player) return;
 
-if(player.isMuted()){
-
-player.unMute();
-muteBtn.textContent="🔊 Mute";
-
-}else{
-
+if(!isMuted){
 player.mute();
 muteBtn.textContent="🔇 Unmute";
-
+isMuted=true;
+}else{
+player.unMute();
+muteBtn.textContent="🔊 Mute";
+isMuted=false;
 }
 
-}
+});
 
 
 /* CONFETTI */
 
-const colors=['#ffea75','#ff7f7f','#89d6ff','#ffb6c1','#ffd66b'];
+const colors = ['#ffea75','#ff7f7f','#89d6ff','#ffb6c1','#ffd66b'];
 
 function createConfetti(){
 
@@ -226,6 +217,8 @@ modal.addEventListener('click',()=>{
 modal.classList.remove('active');
 
 });
+
+</script>
 
 </script>
 
