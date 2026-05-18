@@ -18,6 +18,7 @@
 
 <div class="confetti" aria-hidden="true"></div>
 
+<!-- PHOTO MODAL -->
 <div class="photo-modal" id="photoModal">
 <img id="modalImage" src="" alt="">
 </div>
@@ -74,20 +75,22 @@ Sekarang sudah naik level: istri, ibu, manager rumah tangga.
 </div>
 
 
+<!-- YOUTUBE AUDIO (HIDDEN PLAYER) -->
 <iframe
 id="ytMusic"
 width="0"
 height="0"
-src="https://www.youtube.com/embed/VEe_yIbW64w?enablejsapi=1&playsinline=1&loop=1&playlist=VEe_yIbW64w"
+src="https://www.youtube.com/embed/P3maspwH6tM?enablejsapi=1&loop=1&playlist=P3maspwH6tM&playsinline=1"
 frameborder="0"
 allow="autoplay; encrypted-media">
 </iframe>
 
 
+<!-- MUSIC PLAYER -->
 <div class="music-player">
 
 <div style="font-size:12px; font-weight:600; margin-bottom:4px;">
-🎵 Stay With Me — Miki Matsubara
+🎵 Stay With Me — Mariko Tone
 </div>
 
 <button id="playPauseBtn">▶ Play</button>
@@ -101,71 +104,69 @@ allow="autoplay; encrypted-media">
 <script>
 
 let player;
-let isPlaying = false;
+let playerReady = false;
 
-function onYouTubeIframeAPIReady(){
-
+function onYouTubeIframeAPIReady() {
 player = new YT.Player('ytMusic',{
 events:{
-'onReady': onPlayerReady
-},
-playerVars:{
-playsinline:1,
-rel:0,
-modestbranding:1
+'onReady':function(){
+playerReady = true;
+}
 }
 });
-
-}
-
-function onPlayerReady(event){
-console.log("YT Player Ready");
 }
 
 const playBtn = document.getElementById("playPauseBtn");
 const muteBtn = document.getElementById("muteBtn");
 
-playBtn.addEventListener("click",function(){
+let isPlaying = false;
 
-if(!player) return;
+playBtn.onclick = function(){
+
+if(!playerReady) return;
 
 if(!isPlaying){
-
 player.playVideo();
-
-setTimeout(()=>{
-player.unMute();
-},300);
-
-playBtn.textContent="⏸ Pause";
-isPlaying=true;
-
+playBtn.textContent = "⏸ Pause";
+isPlaying = true;
 }else{
-
 player.pauseVideo();
-playBtn.textContent="▶ Play";
-isPlaying=false;
+playBtn.textContent = "▶ Play";
+isPlaying = false;
+}
 
 }
 
-});
+muteBtn.onclick = function(){
 
-muteBtn.addEventListener("click",function(){
-
-if(!player) return;
+if(!playerReady) return;
 
 if(player.isMuted()){
 player.unMute();
-muteBtn.textContent="🔊 Mute";
+muteBtn.textContent = "🔊 Mute";
 }else{
 player.mute();
-muteBtn.textContent="🔇 Unmute";
+muteBtn.textContent = "🔇 Unmute";
 }
 
-});
+}
 
 
-const colors=['#ffea75','#ff7f7f','#89d6ff','#ffb6c1','#ffd66b'];
+/* MOBILE TOUCH SUPPORT */
+
+document.addEventListener("touchstart",function(){
+
+if(playerReady && !isPlaying){
+player.playVideo();
+player.pauseVideo();
+}
+
+},{once:true});
+
+
+/* CONFETTI */
+
+const colors = ['#ffea75','#ff7f7f','#89d6ff','#ffb6c1','#ffd66b'];
 
 function createConfetti(){
 
@@ -190,6 +191,8 @@ container.appendChild(piece);
 document.addEventListener('DOMContentLoaded',createConfetti);
 
 
+/* CURSOR SPARK */
+
 document.addEventListener('mousemove',function(e){
 
 const spark=document.createElement('span');
@@ -205,6 +208,8 @@ setTimeout(()=>spark.remove(),700);
 
 });
 
+
+/* PHOTO MODAL */
 
 const modal=document.getElementById('photoModal');
 const modalImg=document.getElementById('modalImage');
