@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Selamat Ulang Tahun Mantan Pacarku, Givanny!</title>
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -18,7 +18,6 @@
 
 <div class="confetti" aria-hidden="true"></div>
 
-<!-- PHOTO MODAL -->
 <div class="photo-modal" id="photoModal">
 <img id="modalImage" src="" alt="">
 </div>
@@ -38,14 +37,10 @@ Selamat Ulang Tahun Mantan Pacarku,<br>
 <p>
 Untuk istriku tercinta, Givanny. Di hari istimewamu ini, semoga setiap detik
 dipenuhi kebahagiaan, cinta, dan senyum indah yang selalu menerangi hidupku.
-Terima kasih telah menjadi cahaya dalam hidupku, tempat pulang, dan alasan
-di balik begitu banyak kebahagiaan yang kurasakan setiap hari.
 </p>
 
 <p>
-Semoga semua mimpimu tercapai, langkahmu selalu dimudahkan, dan tahun ini
-membawa lebih banyak tawa, pelukan hangat, serta kenangan indah yang tak
-terlupakan bagi kita berdua.
+Semoga semua mimpimu tercapai dan hidupmu selalu penuh berkah.
 </p>
 
 </section>
@@ -54,20 +49,20 @@ terlupakan bagi kita berdua.
 
 <div class="photo-card">
 <h2>Sebelum Menikah (Masih Pacaran)</h2>
-<p>
-Masih cantik, masih kalem, masih sabar menghadapi aku.
-</p>
 
-<img class="highlight-photo" src="foto-istri-single.jpg"/>
+<img class="highlight-photo"
+src="foto-istri-single.jpg"
+alt="Foto Givanny saat single">
+
 </div>
 
 <div class="photo-card">
-<h2>Setelah Menikah (Anak 1, Menuju 2)</h2>
-<p>
-Sekarang sudah naik level: istri, ibu, manager rumah tangga.
-</p>
+<h2>Setelah Menikah</h2>
 
-<img class="highlight-photo" src="foto-istri-marriage.jpg"/>
+<img class="highlight-photo"
+src="foto-istri-marriage.jpg"
+alt="Foto Givanny setelah menikah">
+
 </div>
 
 </section>
@@ -75,78 +70,32 @@ Sekarang sudah naik level: istri, ibu, manager rumah tangga.
 </div>
 
 
-<!-- YOUTUBE AUDIO (HIDDEN PLAYER) -->
-<iframe
-id="ytMusic"
-width="0"
-height="0"
-src="https://www.youtube.com/embed/P3maspwH6tM?enablejsapi=1&loop=1&playlist=P3maspwH6tM"
-frameborder="0"
-allow="autoplay">
-</iframe>
+<!-- YOUTUBE PLAYER HIDDEN -->
+<div id="youtubePlayer" style="display:none;"></div>
 
 
 <!-- MUSIC PLAYER -->
 <div class="music-player">
 
-<div style="font-size:12px; font-weight:600; margin-bottom:4px;">
-🎵 Stay With Me — Mariko Tone
+<div style="font-size:12px;font-weight:600;">
+🎵 Stay With Me — Miki Matsubara
 </div>
 
 <button id="playPauseBtn">▶ Play</button>
-<button id="muteBtn">🔊 Mute</button>
 
 </div>
+
 
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
 
-let player;
-
-function onYouTubeIframeAPIReady() {
-player = new YT.Player('ytMusic');
-}
-
-const playBtn = document.getElementById("playPauseBtn");
-const muteBtn = document.getElementById("muteBtn");
-
-let isPlaying = false;
-
-playBtn.onclick = function(){
-
-if(!isPlaying){
-player.playVideo();
-playBtn.textContent = "⏸ Pause";
-isPlaying = true;
-}else{
-player.pauseVideo();
-playBtn.textContent = "▶ Play";
-isPlaying = false;
-}
-
-}
-
-muteBtn.onclick = function(){
-
-if(player.isMuted()){
-player.unMute();
-muteBtn.textContent = "🔊 Mute";
-}else{
-player.mute();
-muteBtn.textContent = "🔇 Unmute";
-}
-
-}
-
+const colors=['#ffea75','#ff7f7f','#89d6ff','#ffb6c1','#ffd66b'];
 
 /* CONFETTI */
 
-const colors = ['#ffea75','#ff7f7f','#89d6ff','#ffb6c1','#ffd66b'];
-
 function createConfetti(){
-
 const container=document.querySelector('.confetti');
 
 for(let i=0;i<30;i++){
@@ -160,12 +109,11 @@ piece.style.animationDelay=Math.random()*1.5+'s';
 piece.style.animationDuration=2+Math.random()*2+'s';
 
 container.appendChild(piece);
-
 }
-
 }
 
 document.addEventListener('DOMContentLoaded',createConfetti);
+
 
 
 /* CURSOR SPARK */
@@ -184,6 +132,7 @@ document.body.appendChild(spark);
 setTimeout(()=>spark.remove(),700);
 
 });
+
 
 
 /* PHOTO MODAL */
@@ -205,6 +154,55 @@ modal.classList.add('active');
 modal.addEventListener('click',()=>{
 
 modal.classList.remove('active');
+
+});
+
+
+
+/* YOUTUBE MUSIC */
+
+let player;
+let isPlaying=false;
+
+function onYouTubeIframeAPIReady(){
+
+player=new YT.Player('youtubePlayer',{
+
+height:'0',
+width:'0',
+
+videoId:'P3maspwH6tM',
+
+playerVars:{
+autoplay:0,
+controls:0,
+loop:1,
+playlist:'P3maspwH6tM'
+}
+
+});
+
+}
+
+
+
+const playBtn=document.getElementById("playPauseBtn");
+
+playBtn.addEventListener("click",()=>{
+
+if(!isPlaying){
+
+player.playVideo();
+playBtn.textContent="⏸ Pause";
+isPlaying=true;
+
+}else{
+
+player.pauseVideo();
+playBtn.textContent="▶ Play";
+isPlaying=false;
+
+}
 
 });
 
