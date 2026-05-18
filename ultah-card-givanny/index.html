@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Selamat Ulang Tahun Mantan Pacarku, Givanny!</title>
-<link rel="stylesheet" href="styles.css"/>
+<link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
@@ -16,10 +16,10 @@
 <span class="firework firework-4"></span>
 </div>
 
-<div class="confetti"></div>
+<div class="confetti" aria-hidden="true"></div>
 
 <div class="photo-modal" id="photoModal">
-<img id="modalImage"/>
+<img id="modalImage" src="" alt="">
 </div>
 
 <div class="page">
@@ -33,25 +33,39 @@ Selamat Ulang Tahun Mantan Pacarku,<br>
 </header>
 
 <section class="message">
+
 <p>
 Untuk istriku tercinta, Givanny. Di hari istimewamu ini, semoga setiap detik
 dipenuhi kebahagiaan, cinta, dan senyum indah yang selalu menerangi hidupku.
+Terima kasih telah menjadi cahaya dalam hidupku, tempat pulang, dan alasan
+di balik begitu banyak kebahagiaan yang kurasakan setiap hari.
 </p>
 
 <p>
-Semoga semua mimpimu tercapai, langkahmu selalu dimudahkan.
+Semoga semua mimpimu tercapai, langkahmu selalu dimudahkan, dan tahun ini
+membawa lebih banyak tawa, pelukan hangat, serta kenangan indah yang tak
+terlupakan bagi kita berdua.
 </p>
+
 </section>
 
 <section class="photo-section">
 
 <div class="photo-card">
-<h2>Sebelum Menikah</h2>
+<h2>Sebelum Menikah (Masih Pacaran)</h2>
+<p>
+Masih cantik, masih kalem, masih sabar menghadapi aku.
+</p>
+
 <img class="highlight-photo" src="foto-istri-single.jpg"/>
 </div>
 
 <div class="photo-card">
-<h2>Setelah Menikah</h2>
+<h2>Setelah Menikah (Anak 1, Menuju 2)</h2>
+<p>
+Sekarang sudah naik level: istri, ibu, manager rumah tangga.
+</p>
+
 <img class="highlight-photo" src="foto-istri-marriage.jpg"/>
 </div>
 
@@ -60,23 +74,20 @@ Semoga semua mimpimu tercapai, langkahmu selalu dimudahkan.
 </div>
 
 
-<!-- YOUTUBE AUDIO -->
 <iframe
 id="ytMusic"
 width="0"
 height="0"
-src="https://www.youtube.com/embed/P3maspwH6tM?enablejsapi=1&loop=1&playlist=P3maspwH6tM"
+src="https://www.youtube.com/embed/VEe_yIbW64w?enablejsapi=1&playsinline=1&loop=1&playlist=VEe_yIbW64w"
 frameborder="0"
-allow="autoplay">
+allow="autoplay; encrypted-media">
 </iframe>
 
 
-<!-- MUSIC PLAYER -->
-
 <div class="music-player">
 
-<div style="font-size:12px;font-weight:600;margin-bottom:4px;">
-🎵 Stay With Me — Mariko Tone
+<div style="font-size:12px; font-weight:600; margin-bottom:4px;">
+🎵 Stay With Me — Miki Matsubara
 </div>
 
 <button id="playPauseBtn">▶ Play</button>
@@ -90,30 +101,42 @@ allow="autoplay">
 <script>
 
 let player;
-let playerReady=false;
+let isPlaying = false;
 
 function onYouTubeIframeAPIReady(){
-player=new YT.Player('ytMusic',{
+
+player = new YT.Player('ytMusic',{
 events:{
-'onReady':function(){
-playerReady=true;
-}
+'onReady': onPlayerReady
+},
+playerVars:{
+playsinline:1,
+rel:0,
+modestbranding:1
 }
 });
+
 }
 
-const playBtn=document.getElementById("playPauseBtn");
-const muteBtn=document.getElementById("muteBtn");
+function onPlayerReady(event){
+console.log("YT Player Ready");
+}
 
-let isPlaying=false;
+const playBtn = document.getElementById("playPauseBtn");
+const muteBtn = document.getElementById("muteBtn");
 
-playBtn.onclick=function(){
+playBtn.addEventListener("click",function(){
 
-if(!playerReady) return;
+if(!player) return;
 
 if(!isPlaying){
 
 player.playVideo();
+
+setTimeout(()=>{
+player.unMute();
+},300);
+
 playBtn.textContent="⏸ Pause";
 isPlaying=true;
 
@@ -125,28 +148,22 @@ isPlaying=false;
 
 }
 
-}
+});
 
-muteBtn.onclick=function(){
+muteBtn.addEventListener("click",function(){
 
-if(!playerReady) return;
+if(!player) return;
 
 if(player.isMuted()){
-
 player.unMute();
 muteBtn.textContent="🔊 Mute";
-
 }else{
-
 player.mute();
 muteBtn.textContent="🔇 Unmute";
-
 }
 
-}
+});
 
-
-/* CONFETTI */
 
 const colors=['#ffea75','#ff7f7f','#89d6ff','#ffb6c1','#ffd66b'];
 
@@ -173,8 +190,6 @@ container.appendChild(piece);
 document.addEventListener('DOMContentLoaded',createConfetti);
 
 
-/* CURSOR SPARK */
-
 document.addEventListener('mousemove',function(e){
 
 const spark=document.createElement('span');
@@ -191,23 +206,25 @@ setTimeout(()=>spark.remove(),700);
 });
 
 
-/* PHOTO MODAL */
-
 const modal=document.getElementById('photoModal');
 const modalImg=document.getElementById('modalImage');
 
 document.querySelectorAll('.highlight-photo').forEach(img=>{
 
 img.addEventListener('click',()=>{
+
 modalImg.src=img.src;
 modal.classList.add('active');
-});
 
 });
 
-modal.onclick=function(){
+});
+
+modal.addEventListener('click',()=>{
+
 modal.classList.remove('active');
-}
+
+});
 
 </script>
 
